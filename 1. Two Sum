@@ -28,7 +28,7 @@ Constraints:
 -109 <= target <= 109
 Only one valid answer exists.
 
-```
+```C++
 class Solution {
 public:
     /*Below is the 2 sum algorithm that is O(NlogN) + O(N)*/
