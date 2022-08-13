@@ -37,40 +37,42 @@ Only one valid answer exists.
 
 class Solution {
 public:
-    /*Below is the 2 sum algorithm that is O(NlogN) + O(N)*/
-    /*Alternative: hash从左往右扫描一遍，然后将数及坐标，存到map中。然后再扫描一遍即可。时间复杂度O(n)*/
+    /*Method1: Below is the 2 sum algorithm that is O(NlogN) + O(N). Runtime=12ms, Memory=10.5mb*/ 
     vector<int> twoSum(vector<int> &numbers, int target) {
-        vector<int> numbersCopy;
-        for(int i = 0; i < numbers.size(); i++) numbersCopy.push_back(numbers[i]);
+        vector<int> sortedNumbers;//create copy
+        for(int i = 0; i < numbers.size(); i++) sortedNumbers.push_back(numbers[i]);
         
-        sort(numbersCopy.begin(), numbersCopy.end()); //O(NlogN)
-        vector<int> returnNumbers = twoSumAlgorithm(numbersCopy, target);//O(N)
+        sort(sortedNumbers.begin(), sortedNumbers.end()); //sort, O(NlogN)
+        vector<int> returnNumbers = core(sortedNumbers, target);//O(N)
         
-        vector<int> returnIndexes;
-        for(int j = 0; j < returnNumbers.size(); j++)//2
+        vector<int> r;
+        if(returnNumbers[0] == returnNumbers[1]){//!this code is to take into account of duplicate element in the input array
             for(int i = 0; i < numbers.size(); i++)//O(N)
-                if(numbers[i] == returnNumbers[j]) returnIndexes.push_back(i + 1);
-                
+                    if(numbers[i] == returnNumbers[0]) r.push_back(i);
+        }else{ 
+            for(int j = 0; j < returnNumbers.size(); j++)//2
+                for(int i = 0; i < numbers.size(); i++)//O(N)
+                    if(numbers[i] == returnNumbers[j]) r.push_back(i);
+        }        
         
-        if(returnIndexes[0] > returnIndexes[1]){
-            returnIndexes[0] = returnIndexes[0]^returnIndexes[1];
-            returnIndexes[1] = returnIndexes[0]^returnIndexes[1];
-            returnIndexes[0] = returnIndexes[0]^returnIndexes[1];
+        if(r[0] > r[1]){
+            r[0] = r[0]^r[1];
+            r[1] = r[0]^r[1];
+            r[0] = r[0]^r[1];
         }
-
-        return returnIndexes;
+ 
+        return r;
     }
     
-    /*Core algorithm is linear*/
-    vector<int> twoSumAlgorithm(vector<int> &numbers, int target) {
-        int len = numbers.size();
+    vector<int> core(vector<int> &sortedNumbers, int target) { //O(N)
+        int len = sortedNumbers.size();
         vector<int> r;
         int i = 0; int j = len - 1;
         while(i < j){
-            int x = numbers[i] + numbers[j];
+            int x = sortedNumbers[i] + sortedNumbers[j];
             if(x == target){ 
-                r.push_back(numbers[i]);
-                r.push_back(numbers[j]);
+                r.push_back(sortedNumbers[i]);
+                r.push_back(sortedNumbers[j]);
                 i++; j--;
             }else if(x > target) j--;
             else i++;
@@ -78,8 +80,46 @@ public:
         return r;
     }
     
-    /*Exceed Time Limit*/
-    /*
+    
+    /*Method2: unordered_map, O(n). Runtime=27ms. Memory=12.1mb*/
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> um;
+        vector<int> r;
+        
+        bool found = false;
+        for(int i = 0; i < nums.size(); i++) { 
+            if(um.find(nums[i]) != um.end()){
+                if(nums[i]*2 == target){//!this code is to take into account of duplicate element in the input array
+                    r.push_back(um[nums[i]]);
+                    r.push_back(i);
+                    found=true;
+                    break;
+                }
+            }else
+                um.insert(make_pair(nums[i], i));
+        }
+        
+        if(!found){
+            for(int i = 0; i < nums.size(); i++) {
+                if(target-nums[i] == nums[i]) continue; //!um should not have duplicate keys
+                if(um.find(target-nums[i]) != um.end()){
+                    r.push_back(um[target-nums[i]]);
+                    r.push_back(i);
+                    break;
+                }
+            }
+        }
+        
+        if(r[0]>r[1]){
+            r[0] = r[0]^r[1];
+            r[1] = r[0]^r[1];
+            r[0] = r[0]^r[1];
+        }
+        return r;
+    }
+ 
+    
+    /*Method3: Exceed Time Limit*/
     vector<int> twoSum(vector<int> &numbers, int target) {
         int len = numbers.size();
         int index1 = 0;
@@ -105,7 +145,6 @@ public:
         r.push_back(index1);
         r.push_back(index2);
         return r;
-    }*/
+    }
 };
-
 
