@@ -28,5 +28,78 @@ Constraints:
 -109 <= target <= 109
 Only one valid answer exists.
 
+```
+class Solution {
+public:
+    /*Below is the 2 sum algorithm that is O(NlogN) + O(N)*/
+    /*Alternative: hash从左往右扫描一遍，然后将数及坐标，存到map中。然后再扫描一遍即可。时间复杂度O(n)*/
+    vector<int> twoSum(vector<int> &numbers, int target) {
+        vector<int> numbersCopy;
+        for(int i = 0; i < numbers.size(); i++) numbersCopy.push_back(numbers[i]);
+        
+        sort(numbersCopy.begin(), numbersCopy.end()); //O(NlogN)
+        vector<int> returnNumbers = twoSumAlgorithm(numbersCopy, target);//O(N)
+        
+        vector<int> returnIndexes;
+        for(int j = 0; j < returnNumbers.size(); j++)//2
+            for(int i = 0; i < numbers.size(); i++)//O(N)
+                if(numbers[i] == returnNumbers[j]) returnIndexes.push_back(i + 1);
+                
+        
+        if(returnIndexes[0] > returnIndexes[1]){
+            returnIndexes[0] = returnIndexes[0]^returnIndexes[1];
+            returnIndexes[1] = returnIndexes[0]^returnIndexes[1];
+            returnIndexes[0] = returnIndexes[0]^returnIndexes[1];
+        }
 
+        return returnIndexes;
+    }
+    
+    /*Core algorithm is linear*/
+    vector<int> twoSumAlgorithm(vector<int> &numbers, int target) {
+        int len = numbers.size();
+        vector<int> r;
+        int i = 0; int j = len - 1;
+        while(i < j){
+            int x = numbers[i] + numbers[j];
+            if(x == target){ 
+                r.push_back(numbers[i]);
+                r.push_back(numbers[j]);
+                i++; j--;
+            }else if(x > target) j--;
+            else i++;
+        }
+        return r;
+    }
+    
+    /*Exceed Time Limit*/
+    /*
+    vector<int> twoSum(vector<int> &numbers, int target) {
+        int len = numbers.size();
+        int index1 = 0;
+        int index2 = 0;
+        
+        for(int i = 0; i < len; i++){
+            for(int j = 0; j < len; j++){
+                if(j==i) continue;
+                if(numbers[i] + numbers[j] == target){
+                    index1 = i+1;
+                    index2 = j+1;
+                }
+            }
+        }
+        
+        if(index1>index2){
+            index1 = index1^index2;
+            index2 = index1^index2;
+            index1 = index1^index2;
+        }
+        
+        vector<int> r;
+        r.push_back(index1);
+        r.push_back(index2);
+        return r;
+    }*/
+};
+```
 
