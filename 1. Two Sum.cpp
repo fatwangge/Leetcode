@@ -28,7 +28,13 @@ Constraints:
 -109 <= target <= 109
 Only one valid answer exists.
 
-```C++
+更新了三种Two Sum解法
+1、数组：O(nlogn)
+2、哈希表: 理论O(n)，但数据量不大则不明显
+3、二重循环：最省内存，效率最低
+考虑了输入数据有重复的情况。
+ 
+``` C++
 class Solution {
 public:
     /*Below is the 2 sum algorithm that is O(NlogN) + O(N)*/
