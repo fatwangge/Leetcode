@@ -34,7 +34,7 @@ Only one valid answer exists.
 3、二重循环：最省内存，效率最低
 考虑了输入数据有重复的情况。
  
-``` C++
+
 class Solution {
 public:
     /*Below is the 2 sum algorithm that is O(NlogN) + O(N)*/
@@ -107,5 +107,5 @@ public:
         return r;
     }*/
 };
-```
+
 
