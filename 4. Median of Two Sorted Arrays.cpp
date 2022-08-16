@@ -25,7 +25,7 @@ nums2.length == n
 -106 <= nums1[i], nums2[i] <= 106
   
   
-  class Solution {
+class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
         //Recursive binary search
