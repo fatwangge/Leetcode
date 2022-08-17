@@ -70,8 +70,8 @@ public:
             while(t[i+radius[i]] == t[i-radius[i]]) radius[i]++;
             
             //Update Local Info
-            if(rightMost < radius[i]+i){//更新局部最大半径和中心
-                rightMost = radius[i]+i;
+            if(rightMost < i+radius[i]){//更新局部最大半径和中心
+                rightMost = i+radius[i];
                 localMaxCenter = i;
             }
             
@@ -111,8 +111,8 @@ public:
             while(t[i+radius[i]] == t[i-radius[i]]) radius[i]++;
             
             //Update Local Info
-            if(rightMost < radius[i]+i){//更新局部最大半径和中心
-                rightMost = radius[i]+i;
+            if(rightMost < i+radius[i]){//更新局部最大半径和中心
+                rightMost = i+radius[i];
                 localMaxCenter = i;
             }
             
