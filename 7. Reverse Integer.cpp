@@ -30,7 +30,7 @@ public:
             short c = x%10; //asssume in c++: -123%10=-3
             x = x/10;
             if(result > INT_MAX/10 || result == INT_MAX/10 && c > 7) return 0; //2^31-1=2147483647
-            if(result < INT_MIN/10 || result == INT_MAX/10 && c < -8) return 0; //-2^32=-2147483648
+            if(result < INT_MIN/10 || result == INT_MAX/10 && c < -8) return 0; //-2^31=-2147483648
             result = result * 10 + c;
         }
         return result;
