@@ -29,6 +29,7 @@ nums is a non-decreasing array.
 class Solution {
 public:
     //You must write an algorithm with O(log n) runtime complexity. That means binary search.
+    //Alternative method is to find max and min of nums, seperately
     vector<int> searchRange(vector<int>& nums, int target) {
         return binarySearchRange(nums, target, 0, nums.size()-1);
     }
