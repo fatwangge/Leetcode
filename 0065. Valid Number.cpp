@@ -1,4 +1,4 @@
-65. Valid Number
+65. Valid Number (HARD)
 A valid number can be split up into these components (in order):
 
 A decimal number or an integer.
