@@ -12,7 +12,6 @@ Example 2:
 Input: nums = [0]
 Output: [[],[0]]
  
-
 Constraints:
 
 1 <= nums.length <= 10
