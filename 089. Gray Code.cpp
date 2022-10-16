@@ -43,13 +43,12 @@ public:
     //(3/2)^3                   =0b001^0b011=0b010
     //(4/2)^4                   =0b010^0b100=0b110
     //...
-    /*
     vector<int> grayCode(int n) {   
       vector<int> ret;   
       int size = 1 << n;   
       for(int i = 0; i < size; ++i)   ret.push_back((i >> 1)^i);   //^ is XOR
       return ret;   
-    }*/ 
+    }
     
     //Method 2:
     //规律: n=k时的Gray Code，相当于n=k-1时的Gray Code的逆序 加上 1<<k。
